@@ -1,0 +1,183 @@
+/* Reseta o padding e margem, define a fonte padrão e o box-sizing */
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+ }
+ 
+ /* Fonte para os títulos */
+ span {
+    font-family: 'Press Start 2P';
+ }
+ 
+ /* Cor do texto nos parágrafos */
+ p {
+    color: aliceblue;
+ }
+ 
+ /* Estiliza o corpo da página para centralizar os elementos e aplicar a imagem de fundo */
+ body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    background-image: url('./img/fundo4.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    overflow: hidden;
+ }
+ 
+ /* Container principal do jogo */
+ #container {
+    height: 400px;
+    width: 1200px;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+ }
+ 
+ /* Estilo do jogador */
+ #container #player {
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+ }
+ 
+ #container #player img {
+    height: 100px;
+    width: 100px;
+ }
+ 
+ /* Animação do jogador pulando */
+ .playerActive {
+    animation: animatePlayer 0.5s linear infinite;
+ }
+ 
+ @keyframes animatePlayer {
+    0%, 100% {
+       bottom: 20px;
+    }
+    45%, 55% {
+       bottom: 160px;
+    }
+ }
+ 
+ /* Estilo dos blocos/obstáculos */
+ #container #block {
+    height: 85px;
+    width: 125px;
+    position: absolute;
+    bottom: 20px;
+    right: -20px;
+ }
+ 
+ #container #block img {
+    width: 80px;
+ }
+ 
+ /* Animação dos blocos */
+ .blockActive {
+    animation: blockAnimate 1s linear infinite;
+ }
+ 
+ @keyframes blockAnimate {
+    0% {
+       right: -125px;
+    }
+    100% {
+       right: 100%;
+    }
+ }
+ 
+ /* Estilo da estrada */
+ #container #road {
+    height: 30px;
+    width: 1200px;
+    position: absolute;
+    bottom: 0;
+ }
+ 
+ #container #road img {
+    height: 30px;
+    width: 2000px;
+    position: absolute;
+    left: 0;
+    animation: none;
+ }
+ 
+ @keyframes roadAnimate {
+    0% {
+       left: 0;
+    }
+    100% {
+       left: -800px;
+    }
+ }
+ 
+ /* Estilo do placar */
+ #score {
+    color: aliceblue;
+    height: auto;
+    width: auto;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: 'Press Start 2P';
+ }
+ 
+ /* Estilo da mensagem de game over */
+ #gameOver {
+    display: none;
+    font-size: 70px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #525252;
+    font-family: 'Press Start 2P';
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+ }
+ 
+ /* Animação de piscar */
+ .fa-blink {
+    animation: blink 1s step-end infinite;
+ }
+ 
+ @keyframes blink {
+    0%, 100% {
+       visibility: hidden;
+    }
+    50% {
+       visibility: visible;
+    }
+ }
+ 
+ /* Ajustes responsivos para telas menores */
+ @media (max-width: 768px) {
+    #container {
+       height: 300px;
+       width: 100%;
+    }
+ 
+    #container #player img, #container #block img {
+       height: 60px;
+       width: 60px;
+    }
+ 
+    #score {
+       font-size: 18px;
+    }
+ 
+    #gameOver {
+       font-size: 40px;
+       padding: 10px;
+    }
+ }
+ 

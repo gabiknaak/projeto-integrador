@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOB ESPONJA RUNNING</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div>
+        <h1 style="color: darkred;">
+            <img src="./img/bobepatrick.gif.png" height="50px"> <span>BOB ESPONJA RUNNING</span>
+            <img src="./img/hamb3.gif.gif" height="40px">
+        </h1>
+    </div>
+    <br>
+    <div id="container">
+        <div id="score">Score <b>00</b></div>
+        <div id="gameOver">Game Over</div>
+        <div id="player">
+            <img src="./img/bobesp.gif" width="100" height="200" alt="player">
+        </div>
+        <div id="block">
+            <img src="img/hamb3.gif.gif" alt="blocks">
+        </div>
+        <br>
+        <div id="road">
+            <img src="img/road.png" alt="road">
+        </div>
+    </div>
+    <div>
+        <p><strong class="fa-blink">PRESSIONE <u>A BARRA DE ESPAÇO</u> PARA INICIAR E SETA PARA CIMA (&#8593;) PARA PULAR</strong></p>
+        <br />
+    </div>
+    <script>
+        let container = document.querySelector("#container");
+        let player = document.querySelector("#player");
+        let block = document.querySelector("#block");
+        let road = document.querySelector("#road");
+        let score = document.querySelector("#score");
+        let gameOver = document.querySelector("#gameOver");
+        let interval = null;
+        let playerScore = 0;
+
+        let scoreCounter = () => {
+            playerScore++;
+            score.innerHTML = `Score <b>${playerScore}</b>`;
+        };
+
+        window.addEventListener("keydown", (event) => {
+            if (event.code === "Space" && gameOver.style.display === "block") {
+                resetGame();
+            } else if (event.code === "Space") {
+                gameOver.style.display = "none";
+                block.classList.add("blockActive");
+                road.firstElementChild.style.animation = "roadAnimate 6s linear infinite";
+
+                playerScore = 0;
+                interval = setInterval(scoreCounter, 20);
+            } else if (event.key === "ArrowUp") {
+                if (!player.classList.contains("playerActive")) {
+                    player.classList.add("playerActive");
+                    setTimeout(() => {
+                        player.classList.remove("playerActive");
+                    }, 500);
+                }
+            }
+        });
+
+        let result = setInterval(() => {
+            let playerBottom = parseInt(getComputedStyle(player).getPropertyValue("bottom"));
+            let blockLeft = parseInt(getComputedStyle(block).getPropertyValue("left"));
+            if (playerBottom <= 90 && blockLeft >= 20 && blockLeft <= 145) {
+                gameOver.style.display = "block";
+                block.classList.remove("blockActive");
+                road.firstElementChild.style.animation = "none";
+
+                clearInterval(interval);
+            }
+        }, 10);
+
+        function resetGame() {
+            gameOver.style.display = "none";
+            playerScore = 0;
+            score.innerHTML = `Score <b>00</b>`;
+            block.style.animation = "";
+
+            road.firstElementChild.style.animation = "none";
+            setTimeout(() => {
+                block.classList.add("blockActive");
+                road.firstElementChild.style.animation = "roadAnimate 6s linear infinite";
+
+                interval = setInterval(scoreCounter, 20);
+            }, 100);
+        }
+    </script>
+</body>
+<footer>
+    <p class="p-2 m-0">© 2024 Todos os direitos reservados por Menininhas da Brubru.</p>
+</footer>
+
+</html>
